@@ -1,7 +1,16 @@
+a:link { color: #0000ff; }
+a:visited { color: #ff0000; }
+a:hover { color: #ff00000; }
+a:active { color: #ff0000; }
 .C{
 	text-align:center;
 }
-
+.dl { display: table-cell; text-align: left; width:7em;}
+.dc { display: table-cell; text-align: center; }
+.dr { display: table-cell; text-align: right; }
+.dimgray{
+	background-color:#808080;
+}
 .R{
 	text-align:right;
 }
@@ -10,6 +19,13 @@
 	text-align:leght;
 }
 
-.dimgray{
-	backdground-color:dimgray;
+.j{
+	text-align:justify;
+}
+
+.hyou { display: table; width: 100%;}
+
+.input-group{
+	display: inline-block;
+	min-width:50%;
 }

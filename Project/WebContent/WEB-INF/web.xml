@@ -9,4 +9,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>Usermanegment</display-name>
+    <servlet-name>Usermanegment</servlet-name>
+    <servlet-class>usermanegment.Usermanegment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Usermanegment</servlet-name>
+    <url-pattern>/Usermanegment</url-pattern>
+  </servlet-mapping>
 </web-app>
