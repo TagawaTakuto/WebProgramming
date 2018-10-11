@@ -11,7 +11,7 @@ import java.util.List;
 
 import model.User;
 
-public class userdao {
+public class Userdao {
 
 	public User findByLoginInfo(String login_id,String password) {
 		Connection conn = null;

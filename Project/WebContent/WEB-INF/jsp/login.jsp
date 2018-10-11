@@ -1,14 +1,12 @@
-<%@page language="java" contentType="text/html;charset="UTF-8"
-pageEncoding="UTF-8"%>
-
-<!DOCTYPE html>
-<html lang ="ja">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="style.css">
-	<title>login</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
 </head>
-	<body>
+<body>
 		<h1 class = "C"> ログイン画面 </h1>
 		<from action="/" method="post">
 		<br>
