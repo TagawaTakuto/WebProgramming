@@ -1,16 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang ="ja">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+<title>user_search</title>
 </head>
-<body>
+	<body>
 		<div class="R dimgray">
-			<font  style="color:#ffffff;"> さん　　　</font>
+			<font  style="color:#ffffff;">${userInfo.name}さん　　　</font>
 				<font color="red">
-					<a href="login.html">ログアウト
+					<a href="Logout_servlet">ログアウト
 					</a>
 				</font>
 		</div>
@@ -19,33 +19,41 @@
 			<a href="create_user.html">新規登録
 			</a>
 		</div>
-		<div class="hyou">
-			<p class="dl">ログインID</p>
-			<p class="dc"><span class="input-group"><input type ="text" size="40" login_id = "login_id"></span></p>
+		<div class="C">
+			ログインID　<input type ="text" size="40%" name = "login_id"></span>
 			</div>
 		<br>
-		<div class="hyou">
-			<p class="dl">ユーザー名</p>
-			<p class="dc"><span class="input-group"><input type ="text" size="40" password = "password"></span></p>
+		<div class="C">
+			ユーザー名　<input type ="text" size="40" name = "password"></span>
 		</div>
 		<br>
-		<div class="hyou">
-			<p class="dl">生年月日
-			</p>
-			<p class="dc"><span class="input-group"><input type="text" size="13" value="年/月/日" birth_date = "birth_date">
-							 　～　<input type="text" size="13" value="年/月/日" birth_date = "birth_date"></span>
+		<div class="C">
+			生年月日　　<input type="date" size="15" name = "date_start">
+							 ～　<input type="date" size="15" name = "date_end">
 			</p>
 		</div>
 		<div class="R"><input type="submit" value="　　検索　　"></div>
 		<hr>
-		<table border="1" bgcolor="#c0c0c0" widt="500" cellspacing="0" cellpadding="0" aling="center">
+		<table border="1" bgcolor="#c0c0c0" width = "500" cellspacing="0" cellpadding="0" aling="center">
 			<tr>
 				<th width="20%">ログインID</th>
 				<th width="20%">ユーザー名</th>
 				<th width="30%">生年月日</th>
 				<th width="30%">　　　　</th>
 			</tr>
-
 		</table>
+		<c:forEach var="user" items="${userList}" >
+                   <tr>
+                     <td>${user.loginId}</td>
+                     <td>${user.name}</td>
+                     <td>${user.birthDate}</td>
+
+                     <td>
+                       <a  href ="UserDetailServlet?id=${user.id}">詳細</a>
+                       <a  href ="UserUpdateServlet?id=${user.id}">更新</a>
+                       <a  href ="UserDeleteServlet?id=${user.id}">削除</a>
+                     </td>
+                   </tr>
+        </c:forEach>
 	</body>
 </html>

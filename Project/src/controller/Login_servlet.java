@@ -15,7 +15,7 @@ import model.User;
 /**
  * Servlet implementation class Login_servlet
  */
-@WebServlet("/Login_sevlet")
+@WebServlet("/Login_servlet")
 public class Login_servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -33,10 +33,9 @@ public class Login_servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 		dispatcher.forward(request, response);
 
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -44,7 +43,6 @@ public class Login_servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
 		request.setCharacterEncoding("UTF-8");
 
 		String loginId = request.getParameter("login_id");
@@ -56,7 +54,7 @@ public class Login_servlet extends HttpServlet {
 		if(user == null) {
 			request.setAttribute("errMsg", "ログインに失敗しました。");
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}

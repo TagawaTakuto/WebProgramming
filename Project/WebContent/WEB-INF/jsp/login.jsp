@@ -1,18 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang ="ja">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css">
+	<title>login</title>
 </head>
-<body>
+	<body>
 		<h1 class = "C"> ログイン画面 </h1>
-		<from action="/" method="post">
-		<br>
-		<div class="C">ログインID　　<input type ="text" login_id = "login_id"></div><br>
-		<br>
-		<div class="C">パスワード　　<input type ="text" password = "password"></div><br>
-		<div class="C"><input type ="submit" value="　ログイン　"></div>
-		</body>
+
+		<c:if class="C" test="${errMsg != null}" >
+	   		<div class="C" role="alert">
+		 	 ${errMsg}
+			</div>
+		</c:if>
+
+		<form method="post" action="Login_servlet">
+			<br>
+			<div class="C">ログインID　　<input type ="text" name = "login_id"  placeholder="id"></div><br>
+			<br>
+			<div class="C">パスワード　　<input type ="password" name = "password" placeholder="●●●●●"></div><br>
+			<div class="C"><input type ="submit" value="　ログイン　"></div>
+		</form>
+	</body>
 </html>

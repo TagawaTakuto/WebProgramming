@@ -11,15 +11,15 @@
 			<a href="login.html">ログアウト</a>
 	</div>
 	<h1 class="C">ユーザ新規登録</h1>
-	<div class="C">ログインID　　　　<input type="text" login_id = "login_id"></div>
+	<div class="C">ログインID　　　　<input type="text" name = "login_id"></div>
 	<br>
-	<div class="C">パスワード　　　　<input type="text" password = "password"></div>
+	<div class="C">パスワード　　　　<input type="text" name = "password"></div>
 	<br>
-	<div class="C">パスワード(確認)　<input type="text" kakuninpassword = "kakuninpassword"></div>
+	<div class="C">パスワード(確認)　<input type="text" name = "kakuninpassword"></div>
 	<br>
 	<div class="C">ユーザ名　　　　　<input type="text" name = "name"></div>
 	<br>
-	<div class="C">生年月日　　　　　<input type="text" birth_date = "birth_date"></div>
+	<div class="C">生年月日　　　　　<input type="text" name = "birth_date"></div>
 	<br>
 	<div class="C"><input type="submit" value="登録"></div>
 	<div class="L"><a href="user_search.html">戻る</a></div>
