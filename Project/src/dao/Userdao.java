@@ -85,4 +85,42 @@ public class Userdao {
 			}
 			return userList;
 		}
+
+
+		public User findByLoginId(String id) {
+			Connection conn = null;
+			try {
+				conn = DBManager.getConnection();
+
+				String sql = "SELECT * FROM user WHERE login_id = ? and password = ?";
+				PreparedStatement pStmt = conn.prepareStatement(sql);
+				pStmt.setString(1,id);
+				ResultSet rs = pStmt.executeQuery();
+
+				if(!rs.next()) {
+				return null;
+			}
+				String loginIdData = rs.getString("login_id");
+				String nameData = rs.getString("name");
+				Date birthDate = rs.getDate("birth_date");
+				String createDate = rs.getString("create_date");
+				String updateDate = rs.getString("update_date");
+
+				return new User(loginIdData,nameData,birthDate,createDate, updateDate);
+
+			}catch(SQLException e){
+				e.printStackTrace();
+				return null;
+
+			}finally {
+				if(conn != null) {
+					try {
+						conn .close();
+					}catch (SQLException e) {
+						e.printStackTrace();
+						return null;
+					}
+				}
+			}
+		}
 }

@@ -23,9 +23,13 @@ a:active { color: #ff0000; }
 	text-align:justify;
 }
 
-.hyou { display: table; width: 100%;}
+.hyou {border:1 ;bgcolor:"#c0c0c0" ;width:500 ;cellspacing:0 ;cellpadding:0 ;aling:center;}
 
 .input-group{
 	display: inline-block;
 	min-width:50%;
 }
+
+.red{bgcolor:"red";}
+.blue{bgcolor:"#33CCFF";}
+.green{bgcolor:"#66FF33";}

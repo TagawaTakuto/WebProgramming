@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang ="ja">
 <head>
@@ -34,26 +35,28 @@
 		</div>
 		<div class="R"><input type="submit" value="　　検索　　"></div>
 		<hr>
-		<table border="1" bgcolor="#c0c0c0" width = "500" cellspacing="0" cellpadding="0" aling="center">
+		<table border="1" bgcolor="#c0c0c0" width = "1000" cellspacing="0" cellpadding="0" aling="center">
 			<tr>
 				<th width="20%">ログインID</th>
 				<th width="20%">ユーザー名</th>
 				<th width="30%">生年月日</th>
-				<th width="30%">　　　　</th>
+				<th width=></th>
 			</tr>
-		</table>
+		</table >
+		<table border="1" width="1000"  aling="center">
 		<c:forEach var="user" items="${userList}" >
                    <tr>
-                     <td>${user.loginId}</td>
-                     <td>${user.name}</td>
-                     <td>${user.birthDate}</td>
+                     <td class="C" width="20%"> ${user.login_id}</td>
+                     <td class="C" width="20%"> ${user.name}</td>
+                     <td class="C" width="30%"> ${user.birth_date}</td>
 
-                     <td>
-                       <a  href ="UserDetailServlet?id=${user.id}">詳細</a>
-                       <a  href ="UserUpdateServlet?id=${user.id}">更新</a>
-                       <a  href ="UserDeleteServlet?id=${user.id}">削除</a>
+                     <td class="C">
+                       <a  href ="userDetailservlet?id=${user.id}">詳細</a>　　
+                       <a class="green" href ="userUpdateservlet?id=${user.id}">更新</a>　　
+                       <a class="red" href ="userDeleteervlet?id=${user.id}">削除</a>
                      </td>
                    </tr>
         </c:forEach>
+        </table>
 	</body>
 </html>
