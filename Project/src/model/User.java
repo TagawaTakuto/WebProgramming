@@ -32,7 +32,8 @@ public class User{
 		this.update_date = update_date;
 	}
 
-	public User(String login_id,String name,Date birth_date ,String create_date,String update_date) {
+	public User(int id,String login_id,String name,Date birth_date ,String create_date,String update_date) {
+		this.id = id;
 		this.login_id = login_id;
 		this.name = name;
 		this.birth_date = birth_date;
@@ -40,6 +41,12 @@ public class User{
 		this.update_date = update_date;
 	}
 
+
+	public User(String name,Date birth_date , String password) {
+		this.name = name;
+		this.birth_date = birth_date;
+		this.password = password;
+	}
 
 	public int getId() {
 		return id;

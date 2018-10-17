@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +93,7 @@ public class Userdao {
 			try {
 				conn = DBManager.getConnection();
 
-				String sql = "SELECT * FROM user WHERE login_id = ? and password = ?";
+				String sql = "SELECT * FROM user WHERE id = ?";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				pStmt.setString(1,id);
 				ResultSet rs = pStmt.executeQuery();
@@ -100,13 +101,14 @@ public class Userdao {
 				if(!rs.next()) {
 				return null;
 			}
+				int Id = rs.getInt("id");
 				String loginIdData = rs.getString("login_id");
 				String nameData = rs.getString("name");
 				Date birthDate = rs.getDate("birth_date");
 				String createDate = rs.getString("create_date");
 				String updateDate = rs.getString("update_date");
 
-				return new User(loginIdData,nameData,birthDate,createDate, updateDate);
+				return new User(Id,loginIdData,nameData,birthDate,createDate, updateDate);
 
 			}catch(SQLException e){
 				e.printStackTrace();
@@ -122,5 +124,60 @@ public class Userdao {
 					}
 				}
 			}
+		}
+
+		public User findByUser(String name, String birthDate, String password) {
+			Connection conn = null;
+			try {
+				conn = DBManager.getConnection();
+
+				String sql = "SELECT * FROM user WHERE name = ? and birth_date = ? and password = ?";
+				PreparedStatement pStmt = conn.prepareStatement(sql);
+				pStmt.setString(1,name);
+				pStmt.setString(2,birthDate);
+				pStmt.setString(3,password);
+
+				ResultSet rs = pStmt.executeQuery();
+
+				if(!rs.next()) {
+				return null;
+			}
+
+				String nameData = rs.getString("name");
+				Date birthdate = rs.getDate("birth_date");
+				String Password = rs.getString("password");
+
+
+				return new User(nameData,birthdate,Password);
+
+			}catch(SQLException e){
+				e.printStackTrace();
+				return null;
+
+			}finally {
+				if(conn != null) {
+					try {
+						conn .close();
+					}catch (SQLException e) {
+						e.printStackTrace();
+						return null;
+					}
+				}
+			}
+		}
+
+		public User findByNew(String loginId, String password, String nameDate, String birthDate,
+				SimpleDateFormat createDate, SimpleDateFormat updateDate) {
+
+
+			return null;
+		}
+		
+		public Create() {
+			Connection conn = null;
+			try {
+				conn = DBManager.getConnection();
+				
+				 String sql = "INSERT INTO user values(";
 		}
 }

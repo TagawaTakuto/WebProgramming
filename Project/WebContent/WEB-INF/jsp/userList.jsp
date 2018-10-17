@@ -17,7 +17,7 @@
 		</div>
 		<h1 class="C">ユーザ一覧</h1>
 		<div class="R">
-			<a href="create_user.html">新規登録
+			<a href="UserCreate_servlet">新規登録
 			</a>
 		</div>
 		<div class="C">
@@ -33,7 +33,7 @@
 							 ～　<input type="date" size="15" name = "date_end">
 			</p>
 		</div>
-		<div class="R"><input type="submit" value="　　検索　　"></div>
+		<div class="C"><input type="submit" value="　　検索　　"></div>
 		<hr>
 		<table border="1" bgcolor="#c0c0c0" width = "1000" cellspacing="0" cellpadding="0" aling="center">
 			<tr>
@@ -52,7 +52,7 @@
 
                      <td class="C">
                        <a  href ="userDetailservlet?id=${user.id}">詳細</a>　　
-                       <a class="green" href ="userUpdateservlet?id=${user.id}">更新</a>　　
+                       <a class="green" href ="UserUpdate_servlet?id=${user.id}">更新</a>　　
                        <a class="red" href ="userDeleteervlet?id=${user.id}">削除</a>
                      </td>
                    </tr>

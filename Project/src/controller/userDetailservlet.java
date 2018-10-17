@@ -41,11 +41,11 @@ public class userDetailservlet extends HttpServlet {
 
 
 		Userdao userdao = new Userdao();
-		User userList = userdao.findByLoginId(id);
+		User userd= userdao.findByLoginId(id);
 
 
 		HttpSession session =request.getSession();
-		session.setAttribute("user",userList);
+		session.setAttribute("userd",userd);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_page.jsp");
 		dispatcher.forward(request, response);
