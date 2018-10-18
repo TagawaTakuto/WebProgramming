@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,6 +125,7 @@ public class Userdao {
 			}
 		}
 
+
 		public User findByUser(String name, String birthDate, String password) {
 			Connection conn = null;
 			try {
@@ -166,18 +166,101 @@ public class Userdao {
 			}
 		}
 
-		public User findByNew(String loginId, String password, String nameDate, String birthDate,
-				SimpleDateFormat createDate, SimpleDateFormat updateDate) {
+		//public User findByNew(String loginId, String password, String nameDate, String birthDate) {
 
 
-			return null;
+
+
+
+
+		public void CU(String loginId, String nameDate, String birthDate, String Password) {
+			Connection conn = null;
+
+			/*String source = "password";
+			 Charset charset = StandardCharsets.UTF_8;
+			 String algorithm = "MD5";
+			 byte[] bytes;
+			try {
+				bytes = MessageDigest.getInstance(algorithm).digest(source.getBytes(charset));
+				 String result = DatatypeConverter.printHexBinary(bytes);
+				 System.out.println(result);
+			} catch (NoSuchAlgorithmException e1) {
+				e1.printStackTrace();
+			}*/
+
+			try {
+				conn = DBManager.getConnection();
+
+				 String sql = "INSERT INTO user (login_id, name, birth_date, password, create_date, update_date)"
+				 		+ "values(?, ?, ?, ?, now(),now())";
+				 PreparedStatement st = conn.prepareStatement(sql);
+
+				 st.setString(1,loginId);
+				 st.setString(2,nameDate);
+				 st.setString(3,birthDate);
+				 st.setString(4,Password);
+
+				 int i = st.executeUpdate();
+				 System.out.println(i);
+				 st.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+				return;
+
+			}finally {
+				if(conn != null) {
+					try {
+						conn.close();
+					}catch (SQLException e) {
+						e.printStackTrace();
+						return;
+					}
+				}
+			}
 		}
-		
-		public Create() {
+		//アップデート
+		public void UU(String loginId, String nameDate, String birthDate, String Password){
 			Connection conn = null;
 			try {
 				conn = DBManager.getConnection();
-				
-				 String sql = "INSERT INTO user values(";
+
+				 String sql = "UPDATE user SET name = ? , birth_date = ?"
+				 		+ ", password = ? ,update_date = now() WHERE login_id =?" ;
+				 PreparedStatement st = conn.prepareStatement(sql);
+
+				 st.setString(1,nameDate);
+				 st.setString(2,birthDate);
+				 st.setString(3,Password);
+				 st.setString(4,loginId);
+
+				 int i = st.executeUpdate();
+				 System.out.println(i);
+				 st.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+				return;
+
+			}finally {
+				if(conn != null) {
+					try {
+						conn.close();
+					}catch (SQLException e) {
+						e.printStackTrace();
+						return;
+					}
+				}
+			}
+		}
+
+
+		public User findByNew(String loginId, String password, String nameData, String birthDate) {
+
+			return new User(loginId,password,nameData,birthDate);
+		}
+
+
+		public User findByU(String nameData, String birthDate, String password) {
+			// TODO 自動生成されたメソッド・スタブ
+			return new User(nameData, birthDate, password);
 		}
 }

@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -54,23 +53,15 @@ public class UserCreate_servlet extends HttpServlet {
 
 		String Kpass = request.getParameter("kakuninpassword");
 
-		String nameDate = request.getParameter("name");
+		String nameData = request.getParameter("name");
 
 		String birthDate =request.getParameter("birth_date");
 
 
-		SimpleDateFormat f = new SimpleDateFormat("yyyy年MM月dd日HH:mm");
-
-		SimpleDateFormat createDate = f;
-
-		SimpleDateFormat updateDate = f;
-
-
-
 		Userdao userdao = new Userdao();
-		User newdata = userdao.findByNew(loginId,Password,nameDate, birthDate, createDate, updateDate);
+		User newdata = userdao.findByNew(loginId,Password,nameData, birthDate);
 
-		if( newdata == null && Kpass == Password) {
+		if( newdata == null && Kpass != Password) {
 			request.setAttribute("errMsg", "入力された内容が正しくありません。");
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/create_user.jsp");
@@ -78,9 +69,12 @@ public class UserCreate_servlet extends HttpServlet {
 			return;
 		}
 
-		
+		userdao.CU(loginId,nameData,birthDate,Password);
+
+		response.sendRedirect("UserListservlet");
+
 		}
 
 	}
 
-}
+

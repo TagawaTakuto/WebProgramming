@@ -48,6 +48,14 @@ public class User{
 		this.password = password;
 	}
 
+	public User(String loginId, String password, String nameData, String birthDate) {
+		// TODO 自動生成されたコンストラクター・スタブ
+	}
+
+	public User(String nameData, String birthDate, String password2) {
+		// TODO 自動生成されたコンストラクター・スタブ
+	}
+
 	public int getId() {
 		return id;
 	}

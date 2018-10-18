@@ -22,18 +22,18 @@
 			</c:if>
 		</font>
 		<div class="C">ログインID ${userd.login_id}</div>
-		<br>
+		<br><input type = "hidden" value = userInfo.login_id name = "login_id">
 		<div class="C">パスワード　　　　　<input type="password" name = "password"></div>
 		<br>
-		<div class="C">パスワード(確認)　　<input type="password" name = "kakuinpassword"></div>
+		<div class="C">パスワード(確認)　　<input type="password" name = "kakuninpassword"></div>
 		<br>
 		<div class="C">ユーザ名　　　　　　<input type="text" value="${userd.name}" name = "name"></div>
 		<br>
-		<div class="C">生年月日　　　　　　<input type="Date" value="${userd.birth_date}" name = "birth_date"></div>
+		<div class="C">生年月日　　　　　<input type="Date" value="${userd.birth_date}" name = "birth_date"></div>
 		<br>
 		<div class="C"><input type="submit" value="更新"></div>
 		<br>
-		<div class="R"><a href="UserListservlet">戻る</a></div>
 	</form>
+		<div class="R"><a href="UserListservlet">戻る</a></div>
 	</body>
 </html>

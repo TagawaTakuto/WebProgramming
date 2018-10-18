@@ -61,16 +61,21 @@ public class UserUpdate_servlet extends HttpServlet {
 
 		System.out.println(id);
 
+
+		String loginId = request.getParameter("login_id");
+
 		String nameData = request.getParameter("name");
 
 		String birthDate = request.getParameter("birth_date");
 
 		String Password = request.getParameter("password");
 
-		Userdao userdao = new Userdao();
-		User update = userdao.findByUser(nameData, birthDate, Password);
+		String Kpass = request.getParameter("kakuninpassword");
 
-		if( update == null) {
+		Userdao userdao = new Userdao();
+		User u = userdao.findByU(nameData, birthDate, Password);
+
+		if(u == null && Kpass != Password) {
 			request.setAttribute("errMsg", "入力された内容が正しくありません。");
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_update.jsp");
@@ -78,6 +83,8 @@ public class UserUpdate_servlet extends HttpServlet {
 			return;
 		}
 
+		userdao.UU(loginId, nameData, birthDate, Password);
+		response.sendRedirect("UserListservlet");
 	}
 
 }
