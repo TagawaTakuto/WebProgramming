@@ -56,11 +56,7 @@ public class UserUpdate_servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-
-		String id = request.getParameter("id");
-
-		System.out.println(id);
-
+		Userdao userdao = new Userdao();
 
 		String loginId = request.getParameter("login_id");
 
@@ -72,18 +68,21 @@ public class UserUpdate_servlet extends HttpServlet {
 
 		String Kpass = request.getParameter("kakuninpassword");
 
-		Userdao userdao = new Userdao();
-		User u = userdao.findByU(nameData, birthDate, Password);
-
-		if(u == null && Kpass != Password) {
+		if(loginId.equals("") || nameData.equals("") || birthDate.equals("") || !Kpass.equals(Password)) {
 			request.setAttribute("errMsg", "入力された内容が正しくありません。");
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_update.jsp");
 			dispatcher.forward(request, response);
 			return;
-		}
 
-		userdao.UU(loginId, nameData, birthDate, Password);
+			}else if(Password.equals("") && Kpass.equals("")) {
+
+				userdao.UUP(loginId, nameData, birthDate);
+
+			}else {
+				userdao.UU(loginId, nameData, birthDate, Password);
+			}
+
 		response.sendRedirect("UserListservlet");
 	}
 

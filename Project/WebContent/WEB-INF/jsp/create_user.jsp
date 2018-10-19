@@ -10,7 +10,7 @@
 <body>
 	<div class="R dimgray">
 		<font  style="color:#ffffff;">${userInfo.name} さん　　　</font>
-			<a href="login.html">ログアウト</a>
+			<a href="Logout_servlet">ログアウト</a>
 	</div>
 	<h1 class="C">ユーザ新規登録</h1>
 	<font color="red">

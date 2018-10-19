@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.Userdao;
-import model.User;
 
 
 
@@ -58,10 +57,7 @@ public class UserCreate_servlet extends HttpServlet {
 		String birthDate =request.getParameter("birth_date");
 
 
-		Userdao userdao = new Userdao();
-		User newdata = userdao.findByNew(loginId,Password,nameData, birthDate);
-
-		if( newdata == null && Kpass != Password) {
+		if(loginId.equals("") || Password.equals("") || nameData.equals("") || birthDate.equals("") ||  !Kpass.equals(Password)) {
 			request.setAttribute("errMsg", "入力された内容が正しくありません。");
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/create_user.jsp");
@@ -69,6 +65,7 @@ public class UserCreate_servlet extends HttpServlet {
 			return;
 		}
 
+		Userdao userdao = new Userdao();
 		userdao.CU(loginId,nameData,birthDate,Password);
 
 		response.sendRedirect("UserListservlet");

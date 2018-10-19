@@ -101,13 +101,13 @@ public class Userdao {
 				return null;
 			}
 				int Id = rs.getInt("id");
-				String loginIdData = rs.getString("login_id");
+				String loginId = rs.getString("login_id");
 				String nameData = rs.getString("name");
 				Date birthDate = rs.getDate("birth_date");
 				String createDate = rs.getString("create_date");
 				String updateDate = rs.getString("update_date");
 
-				return new User(Id,loginIdData,nameData,birthDate,createDate, updateDate);
+				return new User(Id,loginId,nameData,birthDate,createDate, updateDate);
 
 			}catch(SQLException e){
 				e.printStackTrace();
@@ -218,6 +218,7 @@ public class Userdao {
 				}
 			}
 		}
+
 		//アップデート
 		public void UU(String loginId, String nameDate, String birthDate, String Password){
 			Connection conn = null;
@@ -252,15 +253,67 @@ public class Userdao {
 			}
 		}
 
+		//デリート
+		public void UD(String loginId) {
+			Connection conn = null;
+			try {
+				conn = DBManager.getConnection();
 
-		public User findByNew(String loginId, String password, String nameData, String birthDate) {
+				 String sql = "DELETE FROM user WHERE login_id =?" ;
+				 PreparedStatement st = conn.prepareStatement(sql);
 
-			return new User(loginId,password,nameData,birthDate);
+				 st.setString(1,loginId);
+
+				 int i = st.executeUpdate();
+				 System.out.println(i);
+				 st.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+				return;
+
+			}finally {
+				if(conn != null) {
+					try {
+						conn.close();
+					}catch (SQLException e) {
+						e.printStackTrace();
+						return;
+					}
+				}
+			}
 		}
 
+		//アップデートパスワード以外
+		public void UUP(String loginId, String nameData, String birthDate) {
+			Connection conn = null;
+			try {
+				conn = DBManager.getConnection();
 
-		public User findByU(String nameData, String birthDate, String password) {
-			// TODO 自動生成されたメソッド・スタブ
-			return new User(nameData, birthDate, password);
+				 String sql = "UPDATE user SET name = ? , birth_date = ?"
+				 		+ ", update_date = now() WHERE login_id =?" ;
+				 PreparedStatement st = conn.prepareStatement(sql);
+
+				 st.setString(1,nameData);
+				 st.setString(2,birthDate);
+				 st.setString(3,loginId);
+
+				 int i = st.executeUpdate();
+				 System.out.println(i);
+				 st.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+				return;
+
+			}finally {
+				if(conn != null) {
+					try {
+						conn.close();
+					}catch (SQLException e) {
+						e.printStackTrace();
+						return;
+					}
+				}
+			}
 		}
 }
+

@@ -22,7 +22,7 @@
 			</c:if>
 		</font>
 		<div class="C">ログインID ${userd.login_id}</div>
-		<br><input type = "hidden" value = userInfo.login_id name = "login_id">
+		<br><input type = "hidden"  value = ${userd.login_id}  name = "login_id">
 		<div class="C">パスワード　　　　　<input type="password" name = "password"></div>
 		<br>
 		<div class="C">パスワード(確認)　　<input type="password" name = "kakuninpassword"></div>

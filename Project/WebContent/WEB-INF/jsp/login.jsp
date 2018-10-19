@@ -14,6 +14,7 @@
 		<c:if test="${errMsg != null}" >
 	   		<div class="C" role="alert">
 		 	 ${errMsg}
+		 	 ${errMsg2}
 			</div>
 		</c:if>
 	</font>

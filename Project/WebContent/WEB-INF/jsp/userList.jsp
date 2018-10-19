@@ -53,7 +53,7 @@
                      <td class="C">
                        <a  href ="userDetailservlet?id=${user.id}">詳細</a>　　
                        <a class="green" href ="UserUpdate_servlet?id=${user.id}">更新</a>　　
-                       <a class="red" href ="userDeleteervlet?id=${user.id}">削除</a>
+                       <a class="red" href ="Userdelete_servlet?id=${user.id}">削除</a>
                      </td>
                    </tr>
         </c:forEach>
