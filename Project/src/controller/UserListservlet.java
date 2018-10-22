@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.Userdao;
 import model.User;
@@ -34,6 +35,15 @@ public class UserListservlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession(false);
+
+		if(session.getAttribute("userInfo") == null) {
+			response.sendRedirect("Login_servlet");
+			return;
+		}
+
+
+		session.getAttribute("userInfo");
 		Userdao userdao = new Userdao();
 		List<User> userList = userdao.findAll();
 
@@ -50,6 +60,16 @@ public class UserListservlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
+
+		String loginId = request.getParameter("login_id");
+		String Name = request.getParameter("name");
+		String birthDateS = request.getParameter("date_start");
+		String birthDateE = request.getParameter("date_end");
+		Userdao userdao = new Userdao();
+		List<User> userList = userdao.findSearch(loginId,Name,birthDateS,birthDateE);
+		request.setAttribute("userList",userList);
+
+		response.sendRedirect("UserListservlet");
 	}
 
 }

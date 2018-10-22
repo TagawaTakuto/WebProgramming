@@ -20,20 +20,21 @@
 			<a href="UserCreate_servlet">新規登録
 			</a>
 		</div>
-		<div class="C">
-			ログインID　<input type ="text" size="40%" name = "login_id"></span>
+		<form method="post" action="UserListservlet">
+			<div class="C">
+				ログインID　<input type ="text" size="40%" name = "login_id">
 			</div>
-		<br>
-		<div class="C">
-			ユーザー名　<input type ="text" size="40" name = "password"></span>
-		</div>
-		<br>
-		<div class="C">
-			生年月日　　<input type="date" size="15" name = "date_start">
+			<br>
+			<div class="C">
+				ユーザー名　<input type ="text" size="40" name = "name">
+			</div>
+			<br>
+			<div class="C">
+				生年月日　　<input type="date" size="15" name = "date_start">
 							 ～　<input type="date" size="15" name = "date_end">
-			</p>
-		</div>
-		<div class="C"><input type="submit" value="　　検索　　"></div>
+			</div>
+			<div class="C"><input type="submit" value="　　検索　　"></div>
+		</form>
 		<hr>
 		<table border="1" bgcolor="#c0c0c0" width = "1000" cellspacing="0" cellpadding="0" aling="center">
 			<tr>
@@ -51,9 +52,13 @@
                      <td class="C" width="30%"> ${user.birth_date}</td>
 
                      <td class="C">
-                       <a  href ="userDetailservlet?id=${user.id}">詳細</a>　　
-                       <a class="green" href ="UserUpdate_servlet?id=${user.id}">更新</a>　　
-                       <a class="red" href ="Userdelete_servlet?id=${user.id}">削除</a>
+                       <a class ="blue" href ="userDetailservlet?id=${user.id}">詳細</a>　　
+				<c:if test = "${userInfo.name == user.name or userInfo.name == '管理者'}">
+                       <a  href ="UserUpdate_servlet?id=${user.id}">更新</a>　　
+				</c:if>
+				<c:if test = "${userInfo.name == '管理者'}">
+                       <a href ="Userdelete_servlet?id=${user.id}">削除</a>
+				</c:if>
                      </td>
                    </tr>
         </c:forEach>

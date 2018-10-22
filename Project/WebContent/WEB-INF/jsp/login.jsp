@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="controller.Login_servlet" %>
+
 <!DOCTYPE html>
 <html lang ="ja">
 <head>
@@ -14,7 +16,6 @@
 		<c:if test="${errMsg != null}" >
 	   		<div class="C" role="alert">
 		 	 ${errMsg}
-		 	 ${errMsg2}
 			</div>
 		</c:if>
 	</font>

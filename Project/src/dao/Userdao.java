@@ -1,5 +1,9 @@
 package dao;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -8,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.bind.DatatypeConverter;
 
 import model.User;
 
@@ -21,7 +27,7 @@ public class Userdao {
 			String sql = "SELECT * FROM user WHERE login_id = ? and password = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1,login_id);
-			pStmt.setString(2,password);
+			pStmt.setString(2,Hashpass(password));
 			ResultSet rs = pStmt.executeQuery();
 
 			if(!rs.next()) {
@@ -54,7 +60,63 @@ public class Userdao {
 			try {
 				conn = DBManager.getConnection();
 
-				String sql = "SELECT * FROM user";
+				String sql = "SELECT * FROM user WHERE login_id NOT IN ('admin')";
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+
+				while(rs.next()) {
+					int id = rs.getInt("id");
+					String loginId = rs.getString("login_id");
+					String name = rs.getString("name");
+					Date birthDate = rs.getDate("birth_date");
+					String password = rs.getString("password");
+					String createDate = rs.getString("create_date");
+					String updateDate = rs.getString("update_date");
+					User user = new User(id, loginId, name, birthDate, password, createDate, updateDate);
+
+					userList.add(user);
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+				return null;
+			}finally {
+				if(conn != null) {
+					try {
+						conn.close();
+					}catch(SQLException e) {
+						e.printStackTrace();
+						return null;
+					}
+				}
+			}
+			return userList;
+		}
+
+		public List<User>findSearch(String loginIdP, String userNameP ,String birthDateS ,
+										String birthDateE){
+			Connection conn = null;
+			List<User> userList = new ArrayList<User>();
+			try {
+				conn = DBManager.getConnection();
+
+				String sql = "SELECT * FROM user WHERE login_id NOT IN ('admin')";
+
+				if(!loginIdP.equals("")) {
+					sql += " AND login_id" + loginIdP + "'";
+				}
+
+				if(!userNameP.equals("")) {
+					sql += " AND name" + userNameP + "'";
+				}
+
+				if(!birthDateS.equals("")) {
+					sql += " AND birth_date" + birthDateS + "'";
+				}
+
+				if(!birthDateE.equals("")) {
+					sql += " AND password" + birthDateE + "'";
+				}
+
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 
@@ -176,18 +238,6 @@ public class Userdao {
 		public void CU(String loginId, String nameDate, String birthDate, String Password) {
 			Connection conn = null;
 
-			/*String source = "password";
-			 Charset charset = StandardCharsets.UTF_8;
-			 String algorithm = "MD5";
-			 byte[] bytes;
-			try {
-				bytes = MessageDigest.getInstance(algorithm).digest(source.getBytes(charset));
-				 String result = DatatypeConverter.printHexBinary(bytes);
-				 System.out.println(result);
-			} catch (NoSuchAlgorithmException e1) {
-				e1.printStackTrace();
-			}*/
-
 			try {
 				conn = DBManager.getConnection();
 
@@ -198,7 +248,7 @@ public class Userdao {
 				 st.setString(1,loginId);
 				 st.setString(2,nameDate);
 				 st.setString(3,birthDate);
-				 st.setString(4,Password);
+				 st.setString(4,Hashpass(Password));
 
 				 int i = st.executeUpdate();
 				 System.out.println(i);
@@ -229,9 +279,11 @@ public class Userdao {
 				 		+ ", password = ? ,update_date = now() WHERE login_id =?" ;
 				 PreparedStatement st = conn.prepareStatement(sql);
 
+
+
 				 st.setString(1,nameDate);
 				 st.setString(2,birthDate);
-				 st.setString(3,Password);
+				 st.setString(3,Hashpass(Password));
 				 st.setString(4,loginId);
 
 				 int i = st.executeUpdate();
@@ -314,6 +366,22 @@ public class Userdao {
 					}
 				}
 			}
+		}
+
+		public String Hashpass(String hashpass) {
+			String source = hashpass;
+			 Charset charset = StandardCharsets.UTF_8;
+			 String algorithm = "MD5";
+			 byte[] bytes;
+			String result = null;
+			try {
+				bytes = MessageDigest.getInstance(algorithm).digest(source.getBytes(charset));
+				 result  = DatatypeConverter.printHexBinary(bytes);
+				 System.out.println(result);
+			} catch (NoSuchAlgorithmException e1) {
+				e1.printStackTrace();
+			}
+			return result;
 		}
 }
 
