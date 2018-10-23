@@ -15,11 +15,14 @@
 					</a>
 				</font>
 		</div>
+
 		<h1 class="C">ユーザ一覧</h1>
+
 		<div class="R">
 			<a href="UserCreate_servlet">新規登録
 			</a>
 		</div>
+
 		<form method="post" action="UserListservlet">
 			<div class="C">
 				ログインID　<input type ="text" size="40%" name = "login_id">
@@ -33,31 +36,30 @@
 				生年月日　　<input type="date" size="15" name = "date_start">
 							 ～　<input type="date" size="15" name = "date_end">
 			</div>
+			<br>
 			<div class="C"><input type="submit" value="　　検索　　"></div>
 		</form>
 		<hr>
-		<table border="1" bgcolor="#c0c0c0" width = "1000" cellspacing="0" cellpadding="0" aling="center">
+		<table class="tab" >
 			<tr>
-				<th width="20%">ログインID</th>
-				<th width="20%">ユーザー名</th>
-				<th width="30%">生年月日</th>
-				<th width=></th>
+				<th class="gray" width="20%">ログインID</th>
+				<th class="gray" width="20%">ユーザー名</th>
+				<th class="gray" width="30%">生年月日</th>
+				<th class="gray" width="20%"></th>
 			</tr>
-		</table >
-		<table border="1" width="1000"  aling="center">
 		<c:forEach var="user" items="${userList}" >
                    <tr>
                      <td class="C" width="20%"> ${user.login_id}</td>
                      <td class="C" width="20%"> ${user.name}</td>
                      <td class="C" width="30%"> ${user.birth_date}</td>
 
-                     <td class="C">
-                       <a class ="blue" href ="userDetailservlet?id=${user.id}">詳細</a>　　
+                     <td align="center">
+                       <input type="button" class ="blue L" value="詳細" onClick="location.href ='userDetailservlet?id=${user.id}'" >
 				<c:if test = "${userInfo.name == user.name or userInfo.name == '管理者'}">
-                       <a  href ="UserUpdate_servlet?id=${user.id}">更新</a>　　
+                       <input type="button" class ="green" value="更新"  onClick="location.href ='UserUpdate_servlet?id=${user.id}'">
 				</c:if>
 				<c:if test = "${userInfo.name == '管理者'}">
-                       <a href ="Userdelete_servlet?id=${user.id}">削除</a>
+                       <input type="button" class ="red" value="削除" onClick="location.href ='Userdelete_servlet?id=${user.id}'">
 				</c:if>
                      </td>
                    </tr>

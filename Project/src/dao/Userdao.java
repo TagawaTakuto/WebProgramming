@@ -92,6 +92,7 @@ public class Userdao {
 			return userList;
 		}
 
+		//検索
 		public List<User>findSearch(String loginIdP, String userNameP ,String birthDateS ,
 										String birthDateE){
 			Connection conn = null;
@@ -102,20 +103,20 @@ public class Userdao {
 				String sql = "SELECT * FROM user WHERE login_id NOT IN ('admin')";
 
 				if(!loginIdP.equals("")) {
-					sql += " AND login_id" + loginIdP + "'";
+					sql += " AND login_id" +" = "+ "'" + loginIdP + "'" ;
 				}
 
 				if(!userNameP.equals("")) {
-					sql += " AND name" + userNameP + "'";
+					sql += " AND name" +" LIKE " + "'" + "%" + userNameP + "%" + "'";
 				}
 
-				if(!birthDateS.equals("")) {
-					sql += " AND birth_date" + birthDateS + "'";
+				if(!birthDateS.equals("") && !birthDateE.equals("")) {
+					sql += " AND birth_date" + ">="+  "'" + birthDateS + "'" +
+							" AND birth_date" + "<=" + "'" + birthDateE + "'";
 				}
 
-				if(!birthDateE.equals("")) {
-					sql += " AND password" + birthDateE + "'";
-				}
+
+				System.out.println(sql);
 
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
@@ -234,7 +235,7 @@ public class Userdao {
 
 
 
-
+		//新規登録
 		public void CU(String loginId, String nameDate, String birthDate, String Password) {
 			Connection conn = null;
 
@@ -268,6 +269,40 @@ public class Userdao {
 				}
 			}
 		}
+		//ログインid比較
+		public User findBycreate(String loginId) {
+		Connection conn = null;
+		try {
+			conn = DBManager.getConnection();
+
+			String sql = "SELECT * FROM user WHERE login_id = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1,loginId);
+			ResultSet rs = pStmt.executeQuery();
+
+			if(!rs.next()) {
+			return null;
+		}
+
+			String loginIdData = rs.getString("login_id");
+
+			return new User(loginIdData);
+
+		}catch(SQLException e){
+			e.printStackTrace();
+			return null;
+
+		}finally {
+			if(conn != null) {
+				try {
+					conn .close();
+				}catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+	}
 
 		//アップデート
 		public void UU(String loginId, String nameDate, String birthDate, String Password){

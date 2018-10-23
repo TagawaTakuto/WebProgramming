@@ -69,7 +69,8 @@ public class UserListservlet extends HttpServlet {
 		List<User> userList = userdao.findSearch(loginId,Name,birthDateS,birthDateE);
 		request.setAttribute("userList",userList);
 
-		response.sendRedirect("UserListservlet");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userlist.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

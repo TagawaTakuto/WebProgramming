@@ -55,6 +55,10 @@ public class User{
 		this.birth_date = birthDate;
 	}
 
+	public User(String loginId) {
+		this.login_id = loginId;
+	}
+
 	public int getId() {
 		return id;
 	}

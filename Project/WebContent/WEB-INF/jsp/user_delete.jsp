@@ -18,7 +18,8 @@
 	<br><input type = "hidden"  value = ${u.login_id}  name = "login_id">
 	<div class="C">を本当に削除してよろしいでしょうか。</div>
 	<br>
-	<div class="C"><button onclick ="UserListservlet">キャンセル</button>
+	<div class="C">
+		<input type="button" value="キャンセル" onClick="location.href ='UserListservlet'">
 	 		<input type="submit" style="width:82px;height:26px" value="　OK　">
 	 </div>
 </form>
